@@ -1,8 +1,6 @@
 package org.example.linderlindetunmattonlabb3;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ProductService {
 
@@ -19,6 +17,20 @@ public class ProductService {
             products.put(product.getId(), product);
         }
     }
+
+    public List<Product> getMostExpensiveProducts(int n){
+        if (n < 0){
+            throw new IllegalArgumentException("The number of products can not be negative");
+        }
+
+        return products
+                .values()
+                .stream()
+                .sorted(Comparator.comparingDouble(Product::getPrice).reversed())
+                .limit(n)
+                .toList();
+    }
+
     public void deleteProduct(String id){
         products.remove(id);
     }
