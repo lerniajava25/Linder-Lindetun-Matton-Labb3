@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class ProductService {
 
-    private final  Map<String, Product> products = new HashMap<>();
+    private final  Map<String, Product> products = Collections.synchronizedmap(new HashMap<>());
 
     public void addProduct(Product product){
         products.put(product.getId(), product);
