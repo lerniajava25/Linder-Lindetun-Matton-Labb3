@@ -2,7 +2,6 @@ package org.example.linderlindetunmattonlabb3;
 
 import java.time.LocalDate;
 
-
 public class Product {
     private String id;
     private String name;
@@ -11,7 +10,6 @@ public class Product {
     private int stockBalance;
     private LocalDate expirationDate;
     private LocalDate registrationDate;
-
 
     public Product(String id, String name, double price, String category, int stockBalance, LocalDate expirationDate, LocalDate registrationDate) {
         this.id = id;
