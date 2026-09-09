@@ -42,3 +42,4 @@ public class Product {
         return registrationDate;
     }
 }
+.Product
