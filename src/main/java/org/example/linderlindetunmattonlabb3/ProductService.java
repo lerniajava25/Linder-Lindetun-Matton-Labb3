@@ -1,11 +1,12 @@
 package org.example.linderlindetunmattonlabb3;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ProductService {
 
-    private final  Map<String, Product> products = Collections.synchronizedmap(new HashMap<>());
+    private final  Map<String, Product> products = Collections.synchronizedMap(new HashMap<>());
 
     public void addProduct(Product product){
         products.put(product.getId(), product);
