@@ -9,5 +9,4 @@ class LinderLindetunMattonLabb3ApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
