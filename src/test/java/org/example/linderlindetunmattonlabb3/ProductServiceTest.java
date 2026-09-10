@@ -1,5 +1,6 @@
 package org.example.linderlindetunmattonlabb3;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -56,10 +57,41 @@ class ProductServiceTest {
                 LocalDate.now()
         );
 
+        Product coffee = new Product(
+                "5",
+                "Coffee",
+                30,
+                "Drinks",
+                20,
+                LocalDate.of(2028, 3, 28),
+                LocalDate.now()
+        );
+
         productService.addProduct(laptop);
         productService.addProduct(mouse);
         productService.addProduct(monitor);
         productService.addProduct(keyboard);
+        productService.addProduct(coffee);
+    }
+
+    @Test
+    void shouldReturnProductsInCategory() {
+        List<Product> categoryProducts = productService.getProductsInCategory("Electronics");
+
+        assertThat(categoryProducts)
+                .hasSize(4)
+                .doesNotContain(productService.getProducts().get(4));
+    }
+
+    @Test
+    void shouldReturnProductsBelowStockThreshold() {
+        List<Product> productsBelowStock = productService.getProductsBelowStockThreshold(11);
+
+        assertThat(productsBelowStock).hasSize(2).doesNotContain(
+                productService.getProduct("2"),
+                productService.getProduct("4"),
+                productService.getProduct("5")
+        );
     }
 
     @Test
