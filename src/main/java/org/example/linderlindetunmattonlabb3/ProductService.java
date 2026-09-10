@@ -2,6 +2,7 @@ package org.example.linderlindetunmattonlabb3;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,7 @@ public class ProductService {
     public void addProduct(Product product){
         products.put(product.getId(), product);
     }
+    public List<Product> getProducts() { return products.values().stream().toList(); }
     public Product getProduct(String id){
         return products.get(id);
     }
@@ -22,6 +24,20 @@ public class ProductService {
     }
     public void deleteProduct(String id){
         products.remove(id);
+    }
+
+    public List<Product> getProductsInCategory(String category) {
+        return products.values()
+                .stream()
+                .filter(product -> product.getCategory().equals(category))
+                .toList();
+    }
+
+    public List<Product> getProductsBelowStockThreshold(int threshold) {
+        return products.values()
+                .stream()
+                .filter(product -> product.getStockBalance() < threshold)
+                .toList();
     }
 
     public Map<String, Double> getTotalStockValueByCategory() {
@@ -38,5 +54,3 @@ public class ProductService {
                 .collect(Collectors.groupingBy(Product::getCategory, Collectors.averagingDouble(Product::getPrice)));
     }
 }
-
-
