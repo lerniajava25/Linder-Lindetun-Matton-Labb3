@@ -4,20 +4,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class WarehouseController {
     Logger logger = LoggerFactory.getLogger(WarehouseController.class);
+    private final ProductService productService = new ProductService();
 
     @GetMapping("/products")
-    public void getProducts() {
+    public List<Product> getProducts(@RequestParam(required = false) String category, @RequestParam(required = false) Integer maxStock) {
+        if(category != null && !category.isBlank()) {
+            logger.info("get products with category {} called", category);
+            return productService.getProductsInCategory(category);
+        }
+
+        if(maxStock != null) {
+            logger.info("get products with stock below {} called", maxStock);
+            return productService.getProductsBelowStockThreshold(maxStock);
+        }
+
         logger.info("get products called");
-        // anropa get-metod i servicen
+        return productService.getProducts();
     }
 
     @PostMapping("/products")
-    public void createProduct(@RequestBody String body, String id) {
-        logger.info("created product with id {}, name {}", id, body);
-        // anropa post-metod i servicen
+    public void createProduct(@RequestBody Product body) {
+        logger.info("created product with name {}", body.getName());
+        productService.addProduct(body);
     }
 
     @PutMapping("/products/{id}")
