@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -132,4 +133,17 @@ class ProductServiceTest {
 
         assertTrue(result.isEmpty());
     }
+    @Test
+    void shouldCalculateTotalStockValueByCategory(){
+        Map<String, Double> result = productService.getTotalStockValueByCategory();
+
+        assertEquals(179500.0, result.get("Electronics"), 0.0001);
+    }
+    @Test
+    void shouldCalculateAveragePriceByCategory(){
+        Map<String, Double> result = productService.getAveragePriceByCategory();
+
+        assertEquals(4375.0, result.get("Electronics"), 0.0001);
+    }
+
 }
