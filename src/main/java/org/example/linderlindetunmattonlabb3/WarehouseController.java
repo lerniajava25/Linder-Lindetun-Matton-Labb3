@@ -9,7 +9,6 @@ import java.util.List;
 @RestController
 public class WarehouseController {
     Logger logger = LoggerFactory.getLogger(WarehouseController.class);
-    private final ProductService productService = new ProductService();
 
     private final ProductService productService;
 
