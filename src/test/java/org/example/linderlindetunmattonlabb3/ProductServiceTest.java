@@ -85,6 +85,13 @@ class ProductServiceTest {
     }
 
     @Test
+    void emptyCategoryShouldThrowIllegalArgumentException() {
+        var exception = assertThrows(IllegalArgumentException.class, () ->
+            productService.getProductsInCategory(""));
+        assertEquals("Category can not be null or blank", exception.getMessage());
+    }
+
+    @Test
     void shouldReturnProductsBelowStockThreshold() {
         List<Product> productsBelowStock = productService.getProductsBelowStockThreshold(11);
 
@@ -93,6 +100,13 @@ class ProductServiceTest {
                 productService.getProduct("4"),
                 productService.getProduct("5")
         );
+    }
+
+    @Test
+    void negativeThresholdValueShouldThrowIllegalArgumentException() {
+        var exception = assertThrows(IllegalArgumentException.class, () ->
+                productService.getProductsBelowStockThreshold(-1));
+        assertEquals("The stock threshold can not be negative", exception.getMessage());
     }
 
     @Test

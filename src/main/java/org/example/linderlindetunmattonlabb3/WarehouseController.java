@@ -3,11 +3,10 @@ package org.example.linderlindetunmattonlabb3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.net.http.HttpResponse;
+import java.util.Map;
 import java.util.List;
 
 @RestController
@@ -55,6 +54,14 @@ public class WarehouseController {
         }
         logger.info("get products called");
         return productService.getProducts();
+    }
+    @GetMapping("/analysis/stock-value")
+    public Map<String, Double> getTotalStockValueByCategory() {
+        return productService.getTotalStockValueByCategory();
+    }
+    @GetMapping("/analysis/average-price")
+    public Map<String, Double> getAveragePriceByCategory() {
+        return productService.getAveragePriceByCategory();
     }
 
     @PostMapping("/products")
