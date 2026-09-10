@@ -1,5 +1,7 @@
 package org.example.linderlindetunmattonlabb3;
 
+import org.springframework.stereotype.Service;
+
 import java.util.*;
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Service
 public class ProductService {
 
     private final  Map<String, Product> products = Collections.synchronizedMap(new HashMap<>());

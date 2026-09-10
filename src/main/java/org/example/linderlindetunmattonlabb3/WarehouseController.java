@@ -11,6 +11,12 @@ public class WarehouseController {
     Logger logger = LoggerFactory.getLogger(WarehouseController.class);
     private final ProductService productService = new ProductService();
 
+    private final ProductService productService;
+
+    public WarehouseController(ProductService productService){
+        this.productService = productService;
+    }
+
     @GetMapping("/products")
     public List<Product> getProducts(@RequestParam(required = false) String category, @RequestParam(required = false) Integer maxStock) {
         if(category != null && !category.isBlank()) {
