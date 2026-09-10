@@ -1,6 +1,10 @@
 package org.example.linderlindetunmattonlabb3;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ProductService {
 
@@ -34,5 +38,19 @@ public class ProductService {
                 .stream()
                 .filter(product -> product.getStockBalance() < threshold)
                 .toList();
+    }
+
+    public Map<String, Double> getTotalStockValueByCategory() {
+        return products.values()
+        .stream()
+                .collect(Collectors.groupingBy(Product::getCategory,Collectors.summingDouble(product -> product.getStockBalance() * product.getPrice()
+                )
+                ));
+
+    }
+    public Map<String, Double> getAveragePriceByCategory(){
+        return products.values()
+                .stream()
+                .collect(Collectors.groupingBy(Product::getCategory, Collectors.averagingDouble(Product::getPrice)));
     }
 }
