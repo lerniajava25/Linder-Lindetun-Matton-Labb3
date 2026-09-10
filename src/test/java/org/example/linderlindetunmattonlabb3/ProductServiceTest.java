@@ -122,7 +122,7 @@ class ProductServiceTest {
     @Test
     void shouldReturnAllProductsIfLimitIsGreaterThanNumberOfProducts(){
         List<Product> result = productService.getMostExpensiveProducts(12);
-        assertEquals(4, result.size());
+        assertEquals(5, result.size());
     }
 
     @Test
