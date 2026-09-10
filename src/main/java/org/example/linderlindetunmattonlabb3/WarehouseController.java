@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 public class WarehouseController {
     Logger logger = LoggerFactory.getLogger(WarehouseController.class);
@@ -19,11 +21,19 @@ public class WarehouseController {
         logger.info("get products called");
         // anropa get-metod i servicen
     }
+    @GetMapping("/analysis/stock-value")
+    public Map<String, Double> getTotalStockValueByCategory() {
+        return productService.getTotalStockValueByCategory();
+    }
+    @GetMapping("/analysis/average-price")
+    public Map<String, Double> getAveragePriceByCategory() {
+        return productService.getAveragePriceByCategory();
+    }
 
     @PostMapping("/products")
-    public void createProduct(@RequestBody String body, String id) {
-        logger.info("created product with id {}, name {}", id, body);
-        // anropa post-metod i servicen
+    public void createProduct(@RequestBody Product body) {
+        logger.info("created product with name {}", body.getName());
+        productService.addProduct(body);
     }
 
     @PutMapping("/products/{id}")
