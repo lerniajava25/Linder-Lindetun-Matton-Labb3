@@ -45,6 +45,10 @@ public class ProductService {
     }
 
     public List<Product> getProductsInCategory(String category) {
+        if(category == null || category.isBlank()) {
+            throw new IllegalArgumentException("Category can not be null or blank");
+        }
+
         return products.values()
                 .stream()
                 .filter(product -> product.getCategory().equals(category))
@@ -52,6 +56,10 @@ public class ProductService {
     }
 
     public List<Product> getProductsBelowStockThreshold(int threshold) {
+        if(threshold < 0) {
+            throw new IllegalArgumentException("The stock threshold can not be negative");
+        }
+
         return products.values()
                 .stream()
                 .filter(product -> product.getStockBalance() < threshold)
