@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.List;
 
 @RestController
 public class WarehouseController {
@@ -17,9 +18,19 @@ public class WarehouseController {
     }
 
     @GetMapping("/products")
-    public void getProducts() {
+    public List<Product> getProducts(@RequestParam(required = false) String category, @RequestParam(required = false) Integer maxStock) {
+        if(category != null && !category.isBlank()) {
+            logger.info("get products with category {} called", category);
+            return productService.getProductsInCategory(category);
+        }
+
+        if(maxStock != null) {
+            logger.info("get products with stock below {} called", maxStock);
+            return productService.getProductsBelowStockThreshold(maxStock);
+        }
+
         logger.info("get products called");
-        // anropa get-metod i servicen
+        return productService.getProducts();
     }
     @GetMapping("/analysis/stock-value")
     public Map<String, Double> getTotalStockValueByCategory() {
