@@ -80,7 +80,7 @@ class ProductServiceTest {
 
         assertThat(categoryProducts)
                 .hasSize(4)
-                .doesNotContain(productService.getProducts().get(4));
+                .doesNotContain(productService.getProduct("5"));
     }
 
     @Test
