@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.*;
 public class WarehouseController {
     Logger logger = LoggerFactory.getLogger(WarehouseController.class);
 
+    private final ProductService productService;
+
+    public WarehouseController(ProductService productService){
+        this.productService = productService;
+    }
+
     @GetMapping("/products")
     public void getProducts() {
         logger.info("get products called");
